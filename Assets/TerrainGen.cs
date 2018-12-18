@@ -4,13 +4,25 @@ using UnityEngine;
 
 public class TerrainGen : MonoBehaviour {
 
+    public int quadsPerTile = 10;
+    //**
+    [SerializeField, Range(1, 8)] private int octaves = 5;
+    [SerializeField] private float lacunarity = 1f;
+    [SerializeField, Range(0, 1)] protected float gain = 0.391f; //needs to be between 0 and 1 so that each octave contributes less to the final shape.
+    [SerializeField] private float perlinScale = 0.15f;
+
+    public Material meshMaterial;
     Mesh mesh;
+    MeshFilter mf;
+    MeshRenderer mr;
+    MeshCollider mc;
 
     Vector3[] vertices;
     int[] triangles;
 
-    public int xSize = 20;
-    public int zSize = 20;
+    public const int mapChunkSize = 21;
+    public int xSize = 21;
+    public int zSize = 21;
 
     /*
         *---**---*---*
@@ -26,8 +38,13 @@ public class TerrainGen : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        mesh = new Mesh();
-        GetComponent<MeshFilter>().mesh = mesh;
+        //mesh = new Mesh();
+        //GetComponent<MeshFilter>().mesh = mesh;
+
+        mf = gameObject.AddComponent<MeshFilter>(); // Container for the mesh
+        mr = gameObject.AddComponent<MeshRenderer>(); // Draw
+        mc = gameObject.AddComponent<MeshCollider>();
+        mesh = mf.mesh;
 
         CreateShape();
         UpdateMesh();
@@ -35,6 +52,7 @@ public class TerrainGen : MonoBehaviour {
 
     void CreateShape()
     {
+        NoiseGen noise = new NoiseGen(octaves, lacunarity, gain, perlinScale);
 
         vertices = new Vector3[(xSize + 1) * (zSize + 1)];
 
@@ -43,9 +61,10 @@ public class TerrainGen : MonoBehaviour {
             for(int x =0; x <= xSize; x++)
             {
                 // Altering the y value to make uneven terrain
-                float y = Mathf.PerlinNoise(x * .3f, z * .3f) * 2f;
+                float y = 4.3f * noise.GetFractalNoise(transform.position.x + x, transform.position.z + z);
 
                 vertices[i] = new Vector3(x, y, z);
+                //vertices[i] = new Vector3(x, SamplePerlin(transform.position.x + x, transform.position.z + i), z);
                 i++;
             }
         }
@@ -104,6 +123,16 @@ public class TerrainGen : MonoBehaviour {
 
         // Normals are used to calculate how lighting looks
         mesh.RecalculateNormals();
+
+
+        //m.vertices = vertices;
+        //m.uv = uv;
+        //m.triangles = triangles;
+        //m.RecalculateNormals();
+        mr.material = meshMaterial;
+        mc.sharedMesh = mesh;
+        mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+        mr.receiveShadows = true;
     }
 
     private void OnDrawGizmos()
@@ -121,5 +150,12 @@ public class TerrainGen : MonoBehaviour {
     void Update()
     {
 
+    }
+
+    // Perlin noise
+    public static float SamplePerlin(float x, float y)
+    {
+
+        return ( Mathf.PerlinNoise(x * .3f, y * 0.3f) * 2f);
     }
 }
