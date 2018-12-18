@@ -107,29 +107,11 @@ public class TerrainGen : MonoBehaviour {
             vert++;
         }
 
-        // bk
-        uvs = new Vector2[vertices.Length];
-        for (int i = 0, z = 0; z <= zSize; z++)
-        {
-            for (int x = 0; x <= xSize; x++)
-            {
-                uvs[i] = new Vector2((float)x / xSize, (float)z / zSize);
-                i++;
-            }
-        }
 
-        vertColours = new Color[vertices.Length];
-        for (int i = 0, z = 0; z <= zSize; z++)
-        {
-            for (int x = 0; x <= xSize; x++)
-            {
-                float terrainHeight = Mathf.InverseLerp(minTerrainHeight, maxTerrainHeight, vertices[i].y); //gives a value between 0 and 1;
-                vertColours[i] = gradient.Evaluate(terrainHeight);
-                i++;
-            }
-        }
 
-        //SetVertexColours();
+
+        SetUvs();
+        SetVertexColours();
 
         /*
         vertices = new Vector3[]
@@ -171,7 +153,7 @@ public class TerrainGen : MonoBehaviour {
         mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
         mr.receiveShadows = true;
     }
-
+    /*
     private void OnDrawGizmos()
     {
         if (vertices == null)
@@ -182,6 +164,7 @@ public class TerrainGen : MonoBehaviour {
             Gizmos.DrawSphere(vertices[i], .1f);
         }
     }
+    */
 
     // Update is called once per frame
     void Update()
@@ -198,14 +181,29 @@ public class TerrainGen : MonoBehaviour {
 
     void SetVertexColours()
     {
-        float min = -10;
-        float max = 15;
-
-        float diff = max - min;
-
-        for(int i=0; i< vertices.Length; i++)
+        vertColours = new Color[vertices.Length];
+        for (int i = 0, z = 0; z <= zSize; z++)
         {
-            vertexColours.Add(gradient.Evaluate((vertices[i].y - min) / diff));
+            for (int x = 0; x <= xSize; x++)
+            {
+                float terrainHeight = Mathf.InverseLerp(minTerrainHeight, maxTerrainHeight, vertices[i].y); //gives a value between 0 and 1;
+                vertColours[i] = gradient.Evaluate(terrainHeight);
+                i++;
+            }
+        }
+    }
+
+    void SetUvs()
+    {
+        // bk
+        uvs = new Vector2[vertices.Length];
+        for (int i = 0, z = 0; z <= zSize; z++)
+        {
+            for (int x = 0; x <= xSize; x++)
+            {
+                uvs[i] = new Vector2((float)x / xSize, (float)z / zSize);
+                i++;
+            }
         }
     }
 }
