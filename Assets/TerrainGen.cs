@@ -6,10 +6,15 @@ public class TerrainGen : MonoBehaviour {
 
     public int quadsPerTile = 10;
     //**
+    // Noise
     [SerializeField, Range(1, 8)] private int octaves = 5;
     [SerializeField] private float lacunarity = 1f;
     [SerializeField, Range(0, 1)] protected float gain = 0.391f; //needs to be between 0 and 1 so that each octave contributes less to the final shape.
     [SerializeField] private float perlinScale = 0.15f;
+
+    [SerializeField] private Gradient gradient;
+
+    protected List<Color32> vertexColours;  //ud
 
     public Material meshMaterial;
     Mesh mesh;
@@ -19,7 +24,7 @@ public class TerrainGen : MonoBehaviour {
 
     Vector3[] vertices;
     int[] triangles;
-    Vector2[] uvs;
+    Vector2[] uvs;  //bk
 
 
     public const int mapChunkSize = 21;
@@ -93,6 +98,7 @@ public class TerrainGen : MonoBehaviour {
             vert++;
         }
 
+        // bk
         uvs = new Vector2[vertices.Length];
         for (int i = 0, z = 0; z <= zSize; z++)
         {
@@ -166,5 +172,18 @@ public class TerrainGen : MonoBehaviour {
     {
 
         return ( Mathf.PerlinNoise(x * .3f, y * 0.3f) * 2f);
+    }
+
+    void SetVertexColours()
+    {
+        float min = -10;
+        float max = 15;
+
+        float diff = max - min;
+
+        for(int i=0; i< vertices.Length; i++)
+        {
+            vertexColours.Add(gradient.Evaluate((vertices[i].y - min) / diff));
+        }
     }
 }
