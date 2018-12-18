@@ -51,11 +51,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e77103ae2d013eb45ac36e2cc56df42c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quadsPerTile: 10
+  quadsPerTile: 20
   octaves: 5
   lacunarity: 1
   gain: 0.391
   perlinScale: 0.15
-  meshMaterial: {fileID: 2100000, guid: 9ca95627a4c7dd24abe742420d3c66c8, type: 2}
-  xSize: 10
-  zSize: 10
+  gradient:
+    serializedVersion: 2
+    key0: {r: 0.5471698, g: 0.120473504, b: 0, a: 1}
+    key1: {r: 0.46226418, g: 0.27148128, b: 0.18098077, a: 1}
+    key2: {r: 0.084905684, g: 0.044588804, b: 0.04285334, a: 0}
+    key3: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 3084
+    ctime1: 13878
+    ctime2: 37779
+    ctime3: 55512
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 15806
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 4
+    m_NumAlphaKeys: 2
+  meshMaterial: {fileID: 2100000, guid: 25137d50ac7e49c4781d6475c758e4e8, type: 2}
+  xSize: 20
+  zSize: 20

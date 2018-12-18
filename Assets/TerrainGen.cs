@@ -14,6 +14,9 @@ public class TerrainGen : MonoBehaviour {
 
     [SerializeField] private Gradient gradient;
 
+    float minTerrainHeight; //bk
+    float maxTerrainHeight; //bk
+
     protected List<Color32> vertexColours;  //ud
 
     public Material meshMaterial;
@@ -25,6 +28,7 @@ public class TerrainGen : MonoBehaviour {
     Vector3[] vertices;
     int[] triangles;
     Vector2[] uvs;  //bk
+    Color[] vertColours;
 
 
     public const int mapChunkSize = 21;
@@ -72,6 +76,11 @@ public class TerrainGen : MonoBehaviour {
 
                 vertices[i] = new Vector3(x, y, z);
                 //vertices[i] = new Vector3(x, SamplePerlin(transform.position.x + x, transform.position.z + i), z);
+
+                if (y > maxTerrainHeight) //bk
+                    maxTerrainHeight = y;
+                if (y < minTerrainHeight) //bk
+                    minTerrainHeight = y;
                 i++;
             }
         }
@@ -109,6 +118,18 @@ public class TerrainGen : MonoBehaviour {
             }
         }
 
+        vertColours = new Color[vertices.Length];
+        for (int i = 0, z = 0; z <= zSize; z++)
+        {
+            for (int x = 0; x <= xSize; x++)
+            {
+                float terrainHeight = Mathf.InverseLerp(minTerrainHeight, maxTerrainHeight, vertices[i].y); //gives a value between 0 and 1;
+                vertColours[i] = gradient.Evaluate(terrainHeight);
+                i++;
+            }
+        }
+
+        //SetVertexColours();
 
         /*
         vertices = new Vector3[]
@@ -139,6 +160,7 @@ public class TerrainGen : MonoBehaviour {
         // Normals are used to calculate how lighting looks
         mesh.RecalculateNormals();
 
+        mesh.colors = vertColours;  //bk
 
         //m.vertices = vertices;
         //m.uv = uv;

@@ -354,7 +354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 534669902}
-  speed: 50
+  speed: 40
   allowPitch: 1
 --- !u!1 &1500806086
 GameObject:
