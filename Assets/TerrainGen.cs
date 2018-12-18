@@ -19,6 +19,8 @@ public class TerrainGen : MonoBehaviour {
 
     Vector3[] vertices;
     int[] triangles;
+    Vector2[] uvs;
+
 
     public const int mapChunkSize = 21;
     public int xSize = 21;
@@ -91,8 +93,15 @@ public class TerrainGen : MonoBehaviour {
             vert++;
         }
 
-
-
+        uvs = new Vector2[vertices.Length];
+        for (int i = 0, z = 0; z <= zSize; z++)
+        {
+            for (int x = 0; x <= xSize; x++)
+            {
+                uvs[i] = new Vector2((float)x / xSize, (float)z / zSize);
+                i++;
+            }
+        }
 
 
         /*
@@ -120,7 +129,7 @@ public class TerrainGen : MonoBehaviour {
 
         mesh.vertices = vertices;
         mesh.triangles = triangles;
-
+        mesh.uv = uvs;
         // Normals are used to calculate how lighting looks
         mesh.RecalculateNormals();
 
