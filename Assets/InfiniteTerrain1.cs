@@ -2,7 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/*  
+  Code from Bryan Duggan
+*/
+
 public class InfiniteTerrain1 : MonoBehaviour {
+
     public GameObject tilePrefab;
     public Transform player;
     public int quadsPerTile;
@@ -42,8 +48,6 @@ public class InfiniteTerrain1 : MonoBehaviour {
         // Make sure this happens at once at the start
         int xMove = int.MaxValue;
         int zMove = int.MaxValue;
-
-        // Adapted from https://www.youtube.com/watch?v=dycHQFEz8VI
 
         while (true)
         {

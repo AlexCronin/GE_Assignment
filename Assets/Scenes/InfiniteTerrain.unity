@@ -398,5 +398,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 1735666773132284, guid: fefc0dc88f20e22498c9e5329d8820d6, type: 2}
   player: {fileID: 534669905}
-  quadsPerTile: 10
+  quadsPerTile: 20
   halfTile: 5

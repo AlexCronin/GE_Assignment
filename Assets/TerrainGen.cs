@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TerrainGen : MonoBehaviour {
 
-    public int quadsPerTile = 10;
+    public int quadsPerTile = 20;
     //**
     // Noise
     [SerializeField, Range(1, 8)] private int octaves = 5;
@@ -16,8 +16,6 @@ public class TerrainGen : MonoBehaviour {
 
     float minTerrainHeight; //bk
     float maxTerrainHeight; //bk
-
-    protected List<Color32> vertexColours;  //ud
 
     public Material meshMaterial;
     Mesh mesh;
@@ -37,9 +35,9 @@ public class TerrainGen : MonoBehaviour {
 
     /*
         *---**---*---*
-        | 4 |  5 | 6 |
+        | 4 || 5 || 6 |
         *---**---*---*
-        | 1 |  2 | 3 |
+        | 1 || 2 || 3 |
         *---**---*---*
         2 boxes wide has 4 vertices
         vertex count = (xSize + 1) * (zSize+1)

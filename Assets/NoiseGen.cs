@@ -3,12 +3,14 @@ using System.Collections;
 
 public class NoiseGen
 {
-	private int octaves; //can also be called layers. Increasing this increases the level of detail in the terrain.
+	private int octaves;
 	private  float lacunarity; //determines how fast the frequency changes for each octave.
 	private float gain; //determines how fast the amplitude changes for each octave. Also called persistence.
 	private float perlinScale;
 
-	public NoiseGen(){}
+	public NoiseGen()
+    {
+    }
 
 	public NoiseGen(int octaves, float lacunarity, float gain, float perlinScale)
 	{
@@ -16,11 +18,6 @@ public class NoiseGen
 		this.lacunarity = lacunarity;
 		this.gain = gain;
 		this.perlinScale = perlinScale;
-	}
-
-	public float GetValueNoise()
-	{
-		return Random.value;
 	}
 
 	public float GetPerlinNoise(float x, float z)
@@ -36,7 +33,7 @@ public class NoiseGen
 		float frequency = 1;
 		float amplitude = 1;
 
-		for (int i=0; i<octaves; i++)
+		for (int i=0; i < octaves; i++)
 		{
 			float xVal = x * frequency * perlinScale;
 			float zVal = z * frequency * perlinScale;
