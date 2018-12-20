@@ -4,18 +4,16 @@ using UnityEngine;
 
 public class TerrainGen : MonoBehaviour {
 
-    public int quadsPerTile = 20;
-    //**
     // Noise
     [SerializeField, Range(1, 8)] private int octaves = 5;
     [SerializeField] private float lacunarity = 1f;
-    [SerializeField, Range(0, 1)] protected float gain = 0.391f; //needs to be between 0 and 1 so that each octave contributes less to the final shape.
+    [SerializeField, Range(0, 1)] protected float gain = 0.391f;
     [SerializeField] private float perlinScale = 0.15f;
 
     [SerializeField] private Gradient gradient;
 
-    float minTerrainHeight; //bk
-    float maxTerrainHeight; //bk
+    float minTerrainHeight;
+    float maxTerrainHeight;
 
     public Material meshMaterial;
     Mesh mesh;
@@ -25,11 +23,10 @@ public class TerrainGen : MonoBehaviour {
 
     Vector3[] vertices;
     int[] triangles;
-    Vector2[] uvs;  //bk
+    Vector2[] uvs;
     Color[] vertColours;
 
-
-    public const int mapChunkSize = 21;
+    public int quadsPerTile = 20;
     public int xSize = 21;
     public int zSize = 21;
 
@@ -47,8 +44,6 @@ public class TerrainGen : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        //mesh = new Mesh();
-        //GetComponent<MeshFilter>().mesh = mesh;
 
         mf = gameObject.AddComponent<MeshFilter>(); // Container for the mesh
         mr = gameObject.AddComponent<MeshRenderer>(); // Draw
@@ -75,9 +70,9 @@ public class TerrainGen : MonoBehaviour {
                 vertices[i] = new Vector3(x, y, z);
                 //vertices[i] = new Vector3(x, SamplePerlin(transform.position.x + x, transform.position.z + i), z);
 
-                if (y > maxTerrainHeight) //bk
+                if (y > maxTerrainHeight)
                     maxTerrainHeight = y;
-                if (y < minTerrainHeight) //bk
+                if (y < minTerrainHeight)
                     minTerrainHeight = y;
                 i++;
             }
@@ -105,28 +100,8 @@ public class TerrainGen : MonoBehaviour {
             vert++;
         }
 
-
-
-
         SetUvs();
         SetVertexColours();
-
-        /*
-        vertices = new Vector3[]
-        {
-            // Creating 3 vertices to make a triangle
-            new Vector3 (0,0,0),
-            new Vector3 (0,0,1),
-            new Vector3 (1,0,0),
-            new Vector3 (1,0,1)
-        };
-
-        triangles = new int[]
-        {
-            0, 1, 2,
-            1, 3, 2
-        };
-        */
 
     }
 
@@ -139,13 +114,8 @@ public class TerrainGen : MonoBehaviour {
         mesh.uv = uvs;
         // Normals are used to calculate how lighting looks
         mesh.RecalculateNormals();
+        mesh.colors = vertColours;
 
-        mesh.colors = vertColours;  //bk
-
-        //m.vertices = vertices;
-        //m.uv = uv;
-        //m.triangles = triangles;
-        //m.RecalculateNormals();
         mr.material = meshMaterial;
         mc.sharedMesh = mesh;
         mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
@@ -173,7 +143,6 @@ public class TerrainGen : MonoBehaviour {
     // Perlin noise
     public static float SamplePerlin(float x, float y)
     {
-
         return ( Mathf.PerlinNoise(x * .3f, y * 0.3f) * 2f);
     }
 
