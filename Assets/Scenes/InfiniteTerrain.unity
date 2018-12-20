@@ -354,7 +354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 534669902}
-  speed: 40
+  speed: 30
   allowPitch: 1
 --- !u!1 &1500806086
 GameObject:
@@ -399,4 +399,4 @@ MonoBehaviour:
   tilePrefab: {fileID: 1735666773132284, guid: fefc0dc88f20e22498c9e5329d8820d6, type: 2}
   player: {fileID: 534669905}
   quadsPerTile: 20
-  halfTile: 5
+  halfTile: 10

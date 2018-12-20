@@ -27,16 +27,16 @@ public class TerrainGen : MonoBehaviour {
     Color[] vertColours;
 
     public int quadsPerTile = 20;
-    public int xSize = 21;
-    public int zSize = 21;
+    public int xSize = 21;  // Width of tile
+    public int zSize = 21;  
 
     /*
         *---**---*---*
-        | 4 || 5 || 6 |
+        | 4 |  5 | 6 |
         *---**---*---*
-        | 1 || 2 || 3 |
+        | 1 |  2 | 3 |
         *---**---*---*
-        2 boxes wide has 4 vertices
+        3 boxes wide has 4 vertices
         vertex count = (xSize + 1) * (zSize+1)
     */
 
@@ -50,11 +50,11 @@ public class TerrainGen : MonoBehaviour {
         mc = gameObject.AddComponent<MeshCollider>();
         mesh = mf.mesh;
 
-        CreateShape();
+        CreateMesh();
         UpdateMesh();
     }
 
-    void CreateShape()
+    void CreateMesh()
     {
         NoiseGen noise = new NoiseGen(octaves, lacunarity, gain, perlinScale);
 
@@ -83,16 +83,21 @@ public class TerrainGen : MonoBehaviour {
         int vert = 0;
         int tris = 0;
 
+        // Creates the triangles/quad for the mesh
         for (int z = 0; z < zSize; z++)
         {
             for (int x = 0; x < xSize; x++)
             {
+                // First triangle
                 triangles[tris + 0] = vert + 0;
                 triangles[tris + 1] = vert + xSize + 1;
                 triangles[tris + 2] = vert + 1;
+                // Second triangle
                 triangles[tris + 3] = vert + 1;
                 triangles[tris + 4] = vert + xSize + 1;
                 triangles[tris + 5] = vert + xSize + 2;
+
+                // 2 triangles make a quad
 
                 vert++;
                 tris += 6;
@@ -121,18 +126,6 @@ public class TerrainGen : MonoBehaviour {
         mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
         mr.receiveShadows = true;
     }
-    /*
-    private void OnDrawGizmos()
-    {
-        if (vertices == null)
-            return;
-
-        for(int i = 0; i < vertices.Length; i++)
-        {
-            Gizmos.DrawSphere(vertices[i], .1f);
-        }
-    }
-    */
 
     // Update is called once per frame
     void Update()
@@ -162,7 +155,6 @@ public class TerrainGen : MonoBehaviour {
 
     void SetUvs()
     {
-        // bk
         uvs = new Vector2[vertices.Length];
         for (int i = 0, z = 0; z <= zSize; z++)
         {
@@ -173,4 +165,18 @@ public class TerrainGen : MonoBehaviour {
             }
         }
     }
+
+    /*
+    // Using Gizmos to show the vertices
+    private void OnDrawGizmos()
+    {
+        if (vertices == null)
+            return;
+
+        for(int i = 0; i < vertices.Length; i++)
+        {
+            Gizmos.DrawSphere(vertices[i], .1f);
+        }
+    }
+    */
 }

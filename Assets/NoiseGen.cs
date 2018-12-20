@@ -4,8 +4,8 @@ using System.Collections;
 public class NoiseGen
 {
 	private int octaves;
-	private  float lacunarity; //determines how fast the frequency changes for each octave.
-	private float gain; //determines how fast the amplitude changes for each octave. Also called persistence.
+	private  float lacunarity;
+	private float gain;
 	private float perlinScale;
 
 	public NoiseGen()
@@ -22,7 +22,6 @@ public class NoiseGen
 
 	public float GetPerlinNoise(float x, float z)
 	{
-		//Mathf.PerlinNoise gives a float between 0 and 1. For better fractal terrain, change this to values between -1 and +1
 		return (2 * Mathf.PerlinNoise (x, z) - 1);
 	}
 

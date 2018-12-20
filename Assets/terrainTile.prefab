@@ -51,27 +51,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e77103ae2d013eb45ac36e2cc56df42c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quadsPerTile: 20
-  octaves: 5
+  octaves: 8
   lacunarity: 1
-  gain: 0.391
+  gain: 0.338
   perlinScale: 0.15
   gradient:
     serializedVersion: 2
-    key0: {r: 0.5471698, g: 0.120473504, b: 0, a: 1}
-    key1: {r: 0.46226418, g: 0.27148128, b: 0.18098077, a: 1}
-    key2: {r: 0.084905684, g: 0.044588804, b: 0.04285334, a: 0}
-    key3: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 0}
-    key4: {r: 0, g: 0, b: 0, a: 0}
-    key5: {r: 0, g: 0, b: 0, a: 0}
+    key0: {r: 0.10439658, g: 0.3207547, b: 0.14296433, a: 1}
+    key1: {r: 0.4433962, g: 0.25724503, b: 0.1945087, a: 1}
+    key2: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 0}
+    key3: {r: 0.26415092, g: 0.26415092, b: 0.26415092, a: 0}
+    key4: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 0}
+    key5: {r: 0.754717, g: 0.754717, b: 0.754717, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 3084
-    ctime1: 13878
-    ctime2: 37779
-    ctime3: 55512
-    ctime4: 0
-    ctime5: 0
+    ctime0: 7903
+    ctime1: 15806
+    ctime2: 26600
+    ctime3: 46453
+    ctime4: 59367
+    ctime5: 65535
     ctime6: 0
     ctime7: 0
     atime0: 15806
@@ -83,8 +82,9 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
-    m_NumColorKeys: 4
+    m_NumColorKeys: 6
     m_NumAlphaKeys: 2
   meshMaterial: {fileID: 2100000, guid: 25137d50ac7e49c4781d6475c758e4e8, type: 2}
+  quadsPerTile: 20
   xSize: 20
   zSize: 20
